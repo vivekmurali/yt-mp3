@@ -23,6 +23,9 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	}))
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Test complete HELLO WORLD! ~"))
+	})
 	r.Post("/", http.HandlerFunc(serveFile))
-	log.Fatal(http.ListenAndServe(":3000", r))
+	log.Fatal(http.ListenAndServe(":3001", r))
 }
