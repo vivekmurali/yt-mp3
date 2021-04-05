@@ -1,6 +1,5 @@
 <template>
 	<div class="flex flex-col items-center">
-		{{this.done}}
 		<h1 class="text-gray-800 text-5xl font-bold">YOUTUBE-MP3</h1>
 		<transition
 			enter-active-class="animate__animated animate__fadeIn"

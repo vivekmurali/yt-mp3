@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 
 	yt "github.com/vivekmurali2k/ytmp3/pkg"
 )
@@ -57,6 +59,10 @@ func serveFile(w http.ResponseWriter, r *http.Request) {
 	name := yt.Download(url)
 	// fmt.Println("Done successfully!")
 	http.ServeFile(w, r, name+".mp3")
+	err := os.Remove(name + ".mp3")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 type Body struct {
