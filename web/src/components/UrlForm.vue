@@ -29,6 +29,16 @@
 						placeholder="https://youtu.be/vhCEaGWTu10"
 						class="mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500"
 					/>
+					<div class="">
+						<input
+							autocomplete="off"
+							name="songname"
+							type="text"
+							v-model="songname"
+							placeholder="Enter name of the song"
+							class="mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500"
+						/>
+					</div>
 					<button
 						@click="convert()"
 						class="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold text-lg"
@@ -50,6 +60,7 @@ export default {
 		return {
 			url: "",
 			done: true,
+			songname: "",
 		};
 	},
 	methods: {
@@ -77,7 +88,7 @@ export default {
 				.then((res) => res.blob())
 				.then((blob) => {
 					this.done = true;
-					download(blob);
+					download(blob, this.songname);
 				});
 		},
 	},
