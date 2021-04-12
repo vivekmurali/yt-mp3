@@ -74,7 +74,7 @@ export default {
 				return;
 			}
 			this.done = false;
-			fetch("http://localhost:3001", {
+			fetch("https://mp3converter.vivekmurali.tech", {
 				method: "POST",
 				headers: {
 					Accept:
