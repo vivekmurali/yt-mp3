@@ -74,7 +74,7 @@ export default {
 				return;
 			}
 			this.done = false;
-			fetch("https://mp3converter.vivekmurali.tech", {
+			fetch("https://ytmp3.vivekmurali.in", {
 				method: "POST",
 				headers: {
 					Accept:
