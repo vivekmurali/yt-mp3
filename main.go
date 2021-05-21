@@ -7,10 +7,11 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
-	//yt "github.com/vivekmurali2k/ytmp3/pkg"
+	yt "github.com/vivekmurali2k/ytmp3/pkg"
 )
 
 func main() {
+	// yt.Water()
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(cors.Handler(cors.Options{
@@ -26,6 +27,6 @@ func main() {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Test complete HELLO WORLD! ~"))
 	})
-	r.Post("/", http.HandlerFunc(serveFile))
+	r.Post("/", http.HandlerFunc(yt.Filename))
 	log.Fatal(http.ListenAndServe(":3001", r))
 }
