@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -18,19 +17,18 @@ func download(name, videoID string) {
 		// panic(err)
 		log.Println(err)
 	}
-	// fmt.Println("\n\n\n -----\nVideo FORMAT: \n ", len(video.Formats), "\n----")
-	// fmt.Println("\n\n\n -----\nVideo FORMAT: \n ", video.Formats[1].AudioChannels, "\n----")
-	fmt.Printf("\n\n\n ====\n Video Format: \n %#v \n", video.Formats)
-	newAudio := video.Formats.AudioChannels(2)
+	// fmt.Printf("\n\n\n ====\n Video Format: \n %#v \n", video.Formats)
+	newAudio := video.Formats.FindByItag(140)
 	// fmt.Printf("\n\n\n ====\n Video Format: \n %#v \n", newAudio)
 
-	stream, _, err := client.GetStream(video, &newAudio[0])
+	// stream, _, err := client.GetStream(video, &newAudio[0])
+	stream, _, err := client.GetStream(video, newAudio)
 	if err != nil {
 		log.Println("Error here")
 		log.Println(err)
 	}
 
-	file, err := os.Create(name + ".mp3")
+	file, err := os.Create(name)
 	if err != nil {
 		log.Println(err)
 	}
@@ -42,15 +40,15 @@ func download(name, videoID string) {
 		log.Println(err)
 	}
 
-	// convert(name)
+	convert(name)
 
-	// defer func() {
-	// 	err = os.Remove(name)
+	defer func() {
+		err = os.Remove(name)
 
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-	// }()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 	defer file.Close()
 
 	// log.Println("Converted and removed the video file", name)
