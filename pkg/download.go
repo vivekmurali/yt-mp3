@@ -40,7 +40,10 @@ func download(name, videoID string) {
 		log.Println(err)
 	}
 
-	convert(name)
+	err = convert(name)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	defer func() {
 		err = os.Remove(name)

@@ -28,5 +28,6 @@ func main() {
 		w.Write([]byte("Test complete HELLO WORLD! ~"))
 	})
 	r.Post("/", http.HandlerFunc(yt.Filename))
+	r.Get("/song/{songname}", yt.Song)
 	log.Fatal(http.ListenAndServe(":3001", r))
 }
