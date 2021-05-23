@@ -29,6 +29,7 @@
 						placeholder="https://youtu.be/vhCEaGWTu10"
 						class="mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500"
 					/>
+					{{ this.tempname }}
 					<div class="">
 						<input
 							autocomplete="off"
@@ -58,9 +59,13 @@ export default {
 	name: "UrlForm",
 	data() {
 		return {
-			url: "",
+			url: "https://www.youtube.com/watch?v=PCicKydX5GE",
 			done: true,
+			received: false,
 			songname: "",
+			tempname: "",
+			checkurl: "http://localhost:3001/song/",
+			inter: null,
 		};
 	},
 	methods: {
@@ -74,7 +79,8 @@ export default {
 				return;
 			}
 			this.done = false;
-			fetch("https://ytmp3.vivekmurali.in", {
+			this.received = false;
+			fetch("http://localhost:3001", {
 				method: "POST",
 				headers: {
 					Accept:
@@ -85,11 +91,45 @@ export default {
 					url: this.url,
 				}),
 			})
-				.then((res) => res.blob())
-				.then((blob) => {
+				.then((res) => res.text())
+				.then((text) => {
 					this.done = true;
-					download(blob, this.songname);
+					this.received = false;
+					/* console.log(text) */
+					this.tempname = text;
+					this.check();
 				});
+		},
+		check: function () {
+			var ref = this;
+			this.inter = setInterval(function () {
+				console.log(
+					`http://localhost:3001/song/${ref.tempname}`
+				);
+				fetch(
+					`http://localhost:3001/song/${ref.tempname}`
+				)
+					.then((res) => {
+						/* console.log(ref.tempname); */
+						if (res.status == 200) {
+							ref.received = true;
+							ref.tempname = "";
+							ref.clearinter();
+							return res.blob();
+						}
+					})
+					.then((blob) => {
+						if (ref.received == true) {
+							download(
+								blob,
+								ref.songname
+							);
+						}
+					});
+			}, 500);
+		},
+		clearinter: function () {
+			clearInterval(this.inter);
 		},
 	},
 };
