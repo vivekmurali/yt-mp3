@@ -17,5 +17,5 @@ jobs:
           script: |
             cd go/src/github.com/vivekmurali2k/yt-mp3
             git pull 
-            go build .
+            /usr/local/go/bin/go build .
             echo "Built"
