@@ -43,6 +43,8 @@
 					<button
 						@click="convert()"
 						class="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold text-lg"
+						:class="{'animate-pulse': !done}"
+						:disabled="!done"
 					>
 						Convert
 					</button>
@@ -59,7 +61,7 @@ export default {
 	name: "UrlForm",
 	data() {
 		return {
-			url: "https://www.youtube.com/watch?v=PCicKydX5GE",
+			url: "",
 			done: true,
 			received: false,
 			songname: "",
@@ -93,7 +95,7 @@ export default {
 			})
 				.then((res) => res.text())
 				.then((text) => {
-					this.done = true;
+					/* this.done = true; */
 					this.received = false;
 					/* console.log(text) */
 					this.tempname = text;
@@ -103,9 +105,6 @@ export default {
 		check: function () {
 			var ref = this;
 			this.inter = setInterval(function () {
-				console.log(
-					`http://localhost:3001/song/${ref.tempname}`
-				);
 				fetch(
 					`http://localhost:3001/song/${ref.tempname}`
 				)
@@ -120,6 +119,7 @@ export default {
 					})
 					.then((blob) => {
 						if (ref.received == true) {
+							ref.done = true;
 							download(
 								blob,
 								ref.songname
