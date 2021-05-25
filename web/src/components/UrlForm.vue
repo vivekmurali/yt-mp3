@@ -66,7 +66,7 @@ export default {
 			received: false,
 			songname: "",
 			tempname: "",
-			checkurl: "http://localhost:3001/song/",
+			checkurl: "https://ytmp3.vivekmurali.in/song/",
 			inter: null,
 		};
 	},
@@ -82,7 +82,7 @@ export default {
 			}
 			this.done = false;
 			this.received = false;
-			fetch("http://localhost:3001", {
+			fetch("https://ytmp3.vivekmurali.in", {
 				method: "POST",
 				headers: {
 					Accept:
