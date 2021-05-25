@@ -106,7 +106,7 @@ export default {
 			var ref = this;
 			this.inter = setInterval(function () {
 				fetch(
-					`http://localhost:3001/song/${ref.tempname}`
+					`https://ytmp3.vivekmurali.in/song/${ref.tempname}`
 				)
 					.then((res) => {
 						/* console.log(ref.tempname); */
