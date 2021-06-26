@@ -43,7 +43,9 @@
 					<button
 						@click="convert()"
 						class="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold text-lg"
-						:class="{'animate-pulse': !done}"
+						:class="{
+							'animate-pulse': !done,
+						}"
 						:disabled="!done"
 					>
 						Convert
